@@ -1,0 +1,60 @@
+# Build directories
+build/
+build-*/
+out/
+cmake-build-*/
+
+# CMake artifacts
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# vcpkg
+vcpkg_installed/
+vcpkg/buildtrees/
+vcpkg/downloads/
+vcpkg/packages/
+
+# IDE / editor
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.user
+*.swp
+*.swo
+*~
+
+# Doxygen output
+docs/generated/
+docs/html/
+docs/xml/
+
+# Compiled binaries
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.a
+*.lib
+*.pdb
+*.ilk
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+*.gcda
+*.gcno
+*.gcov
+coverage/

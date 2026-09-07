@@ -1,0 +1,45 @@
+# Opt-in sanitizer support for GCC/Clang, applied through an INTERFACE
+# target so only the targets that link against it are affected.
+
+function(myproject_enable_sanitizers target_name)
+  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    return()
+  endif()
+
+  option(MYPROJECT_ENABLE_SANITIZER_ADDRESS   "Enable AddressSanitizer"          OFF)
+  option(MYPROJECT_ENABLE_SANITIZER_UNDEFINED "Enable UndefinedBehaviorSanitizer" OFF)
+  option(MYPROJECT_ENABLE_SANITIZER_THREAD    "Enable ThreadSanitizer"           OFF)
+  option(MYPROJECT_ENABLE_SANITIZER_LEAK      "Enable LeakSanitizer"             OFF)
+  option(MYPROJECT_ENABLE_SANITIZER_MEMORY    "Enable MemorySanitizer (Clang only)" OFF)
+
+  set(sanitizers "")
+
+  if(MYPROJECT_ENABLE_SANITIZER_ADDRESS)
+    list(APPEND sanitizers "address")
+  endif()
+  if(MYPROJECT_ENABLE_SANITIZER_UNDEFINED)
+    list(APPEND sanitizers "undefined")
+  endif()
+  if(MYPROJECT_ENABLE_SANITIZER_THREAD)
+    if(MYPROJECT_ENABLE_SANITIZER_ADDRESS)
+      message(FATAL_ERROR "ThreadSanitizer cannot be combined with AddressSanitizer")
+    endif()
+    list(APPEND sanitizers "thread")
+  endif()
+  if(MYPROJECT_ENABLE_SANITIZER_LEAK)
+    list(APPEND sanitizers "leak")
+  endif()
+  if(MYPROJECT_ENABLE_SANITIZER_MEMORY AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(MYPROJECT_ENABLE_SANITIZER_ADDRESS OR MYPROJECT_ENABLE_SANITIZER_THREAD)
+      message(FATAL_ERROR "MemorySanitizer cannot be combined with Address/ThreadSanitizer")
+    endif()
+    list(APPEND sanitizers "memory")
+  endif()
+
+  list(JOIN sanitizers "," list_of_sanitizers)
+
+  if(list_of_sanitizers)
+    target_compile_options(${target_name} INTERFACE -fsanitize=${list_of_sanitizers} -fno-omit-frame-pointer)
+    target_link_options(${target_name} INTERFACE -fsanitize=${list_of_sanitizers})
+  endif()
+endfunction()

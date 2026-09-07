@@ -1,0 +1,13 @@
+{
+  "name": "myproject",
+  "version": "0.1.0",
+  "description": "A reusable, modern C++ project template",
+  "homepage": "https://github.com/yourname/CppReusableProjectTemplate",
+  "license": "MIT",
+  "dependencies": [
+    {
+      "name": "gtest",
+      "features": []
+    }
+  ]
+}

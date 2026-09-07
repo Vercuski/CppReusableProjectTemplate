@@ -1,0 +1,16 @@
+# Normalize line endings for everyone; let git decide checkout style per OS.
+* text=auto eol=lf
+
+# Windows scripts should keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Diff/merge hints
+*.hpp diff=cpp
+*.cpp diff=cpp
+*.h   diff=cpp
+*.c   diff=cpp
+
+# Do not let generated/vendored content affect GitHub language stats.
+docs/generated/** linguist-generated=true

@@ -1,0 +1,21 @@
+# Minimal Doxygen configuration, expanded by CMake (see docs/CMakeLists.txt).
+# Run `cmake --build build --target docs` (with MYPROJECT_BUILD_DOCS=ON) to
+# generate HTML API documentation from the Doxygen comments in include/.
+
+PROJECT_NAME           = "@PROJECT_NAME@"
+PROJECT_NUMBER         = "@PROJECT_VERSION@"
+OUTPUT_DIRECTORY       = "@DOXYGEN_OUTPUT_DIR@"
+INPUT                  = "@DOXYGEN_INPUT_DIR@"
+RECURSIVE              = YES
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+
+EXTRACT_ALL             = YES
+EXTRACT_PRIVATE         = NO
+EXTRACT_STATIC          = YES
+JAVADOC_AUTOBRIEF       = YES
+SORT_MEMBER_DOCS        = NO
+WARN_IF_UNDOCUMENTED    = YES
+QUIET                   = YES
